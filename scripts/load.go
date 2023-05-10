@@ -14,10 +14,17 @@ func LoadDotfiles() {
 	// Get the home directory
 	homeDir := os.Getenv("HOME")
 
+	// Create backups directory if it doesn't exist
+	if _, err := os.Stat(homeDir + "/backups"); os.IsNotExist(err) {
+		os.Mkdir(homeDir+"/backups", 0755)
+	}
+
 	// Loop through all files and symlink
 	for _, file := range files {
-		// Save the file if it exists to backups
-		if _, err := os.Stat(file); err == nil {
+		// If the symlink exists, delete it
+		if _, err := os.Lstat(file); err == nil {
+			os.Remove(file)
+		} else if _, err := os.Stat(file); err == nil {
 			// If it exists in the backup, delete the old backup
 			if _, err := os.Stat(homeDir + "/backups" + strings.TrimPrefix(file, homeDir)); err == nil {
 				err := os.RemoveAll(homeDir + "/backups" + strings.TrimPrefix(file, homeDir))
@@ -35,11 +42,6 @@ func LoadDotfiles() {
 			if err3 != nil {
 				panic(err3)
 			}
-		}
-
-		// If the symlink exists, delete it
-		if _, err := os.Lstat(file); err == nil {
-			os.Remove(file)
 		}
 
 		// Symlink the file
