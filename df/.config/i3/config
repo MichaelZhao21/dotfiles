@@ -193,11 +193,12 @@ exec --no-startup-id ~/bin/two_monitors
 
 # start programs !!
 exec --no-startup-id feh --bg-scale ~/backgrounds/wallpaper.jpg &
-exec --no-startup-id picom &
+exec --no-startup-id picom --fade-in-step=1 --fade-out-step=1 --fade-delta=0 &
 exec --no-startup-id ~/.config/polybar/launch.sh &
+exec --no-startup-id dunst &
 
 # temp fix to annoying issue with natural scrolling
-exec --no-startup-id xinput set-prop 14 327 1
+exec --no-startup-id xinput set-prop 14 337 1
 
 # other programs
 bindsym $mod+p exec --no-startup-id flameshot gui
