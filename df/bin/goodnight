@@ -1,0 +1,5 @@
+#!/bin/bash
+
+~/bin/lockscreen
+systemctl suspend
+

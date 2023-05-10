@@ -1,0 +1,10 @@
+bin
+.vimrc
+
+[.config]
+dunst
+flameshot
+i3
+polybar
+rofi
+terminator
