@@ -182,7 +182,7 @@ bindsym $mod+r mode "resize"
 # }
 
 # i3 gaps
-gaps inner 12
+gaps inner 6
 
 # border settings
 default_border pixel 0
@@ -198,7 +198,7 @@ exec --no-startup-id ~/.config/polybar/launch.sh &
 exec --no-startup-id dunst &
 
 # temp fix to annoying issue with natural scrolling
-exec --no-startup-id xinput set-prop 14 337 1
+exec --no-startup-id xinput set-prop 'SYNA3298:00 06CB:CD4F Touchpad' "libinput Natural Scrolling Enabled" 1
 
 # other programs
 bindsym $mod+p exec --no-startup-id flameshot gui
