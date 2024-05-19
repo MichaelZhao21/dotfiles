@@ -24,8 +24,6 @@ func main() {
 	case "save":
 		fmt.Println("Saving dotfiles...")
 		scripts.SaveDotfiles()
-	case "load":
-		fallthrough
 	default:
 		fmt.Println("Loading dotfiles...")
 		scripts.LoadDotfiles()

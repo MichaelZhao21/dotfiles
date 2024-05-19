@@ -1,278 +1,114 @@
+
+""""""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""""""
+set nocp
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'luochen1990/rainbow'
+Plugin 'jiangmiao/auto-pairs'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+""""""""""""""""""""""""""
+" Plugin Formats
+""""""""""""""""""""""""""
+
+let g:auto_origami_foldcolumn=2
+let g:auto_origami_foldcolumn=0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline_extensions#tabline#show_buffers = 1
+let g:airline_theme = 'bubblegum'
+let g:indentguides_spacechar = '|'
+let g:indentguides_tabchar = '|'
+let g:indentguides_firstlevel = get(g:, 'indentguides_firstlevel', 1)
+set statusline+=%#warningmsg#
+set statusline+=%*
+let g:rainbow_active = 1
+
 """"""""""""""""""""""""""
 " General
 """"""""""""""""""""""""""
-" remember history for up to 500 lines
-set history=500
+syntax on
 
-" filetype plugins
-filetype plugin on
-filetype indent on
-
-" autoread when file is changed from outside
-set autoread
-au FocusGained,BufEnter * checktime
-
-" Do extra key combos with map leader
-let mapleader = ","
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-":W sudo saves the file
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
-
-"""""""""""""""""""""""""
-" VIM UI
-"""""""""""""""""""""""""
-" Set 7 lines to cursor
-set so=7
-
-" Avoid garbled Chinese characters
-let $LANG='en'
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
-" Turn on the wild menu
-set wildmenu
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-" Always show current pos
-set ruler
-
-" Height of command bar
-set cmdheight=1
-
-" Buffer hidden when abandoned
-set hid
-
-" Configure backspace correctly
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" Search rules
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-
-" Performance for macros
-set lazyredraw
-
-" For regular expressions
-set magic
-
-" Highlight matching brackets
-set showmatch
-
-" Blink time when matching brackets
-set mat=2
-
-" No annoying error sounds
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-" Left magin
-set foldcolumn=1
-
-" Show line numbers
-set number
-
-""""""""""""""""""""""""""""""""""
-" Colors and fonts
-""""""""""""""""""""""""""""""""""
-
-" Syntax highlighting
-syntax enable
-
-" Enable 256 palette in GNOME term
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-" Set utf8 as standard encoding
-set encoding=utf8
-
-" Use Unix as std file type
-set ffs=unix,dos,mac
-
-"""""""""""""""""""""""""""""""""""""""
-" Files, backups, and undo
-"""""""""""""""""""""""""""""""""""""""
-" If want to disable, do it but I will not for now
-" set nobackup
-" set nowb
-" set noswapfile
-
-"""""""""""""""""""""""""""""""""""""""
-" Text, tabs, and indents
-"""""""""""""""""""""""""""""""""""""""
-" Space except tab
+"Indention
+set ai "Auto indent
+set si "Smart indent
 set expandtab
-
-" Smarttab
+set shiftround
+set shiftwidth=4
+set tabstop=4
 set smarttab
 
-" 1 tab = 4 spaces
-set tabstop=4
-set shiftwidth=4
+"Search
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
 
-" Linebreak on 500 chars
-set lbr
-set tw=500
+"Performance
+set complete-=i
+set lazyredraw
 
-" Indent/wrap lines
-set ai
-set si
-set wrap
+"Text Rendering
+set display+=lastline
+set encoding=utf-8
+set linebreak
+set scrolloff=1
+set sidescrolloff=5
+syntax enable
+set nowrap "wrap if want text wrapping
 
-""""""""""""""""""""""""""""""""""""""""
-" Visual mode
-""""""""""""""""""""""""""""""""""""""""
-" Press * or # searches for curr selection
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+"UI
+set laststatus=2
+set ruler
+set wildmenu
+set tabpagemax=50
+set number
+set noerrorbells
+set mouse=a
+set title
+set cursorline
+set list " Display unprintable characters f12 - switches
+set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
 
-""""""""""""""""""""""""""""""""""""""""
-" Moving around, tabs, windows, buffers
-""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <C-space> ?
+"Code Folding
+set foldmethod=syntax
+set foldlevel=99
+set foldnestmax=3
+set nofoldenable
 
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
 
-""""""""""""""""""""""""""""""""""""
-" Status line
-""""""""""""""""""""""""""""""""""""
+"Misc
+filetype plugin on
+filetype indent on
+set autoread
+set backspace=indent,eol,start
+set formatoptions+=j
+set confirm
+set hidden
+set history=1000
+set nomodeline
+set noswapfile
+set nrformats-=octal
+set wildignore+=.pyc,.swp
 
-""""""""""""""""""""""""""""""""""""
-" Editing mappings
-""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
+""""""""""""""""""""""""""
+" Colors
+""""""""""""""""""""""""""
+set termguicolors
+colorscheme catppuccin_macchiato
 
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
-
-"""""""""""""""""""""""""""""""""""
-" Spell checking
-"""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss:setlocal spell!<cr>
-
-"Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-"""""""""""""""""""""""""""""""""""
-" Misc
-"""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-""""""""""""""""""""""""""""""""""""
-" Helper functions
-""""""""""""""""""""""""""""""""""""
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
-    endif
-endfunction
-
-function! CmdLine(str)
-    call feedkeys(":" . a:str)
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction

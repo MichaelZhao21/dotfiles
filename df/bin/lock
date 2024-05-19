@@ -1,0 +1,3 @@
+#!/bin/sh
+i3lock -n -f -e -t -i ~/Pictures/backgrounds/magic-forest-mountain-moon.png
+

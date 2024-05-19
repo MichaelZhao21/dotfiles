@@ -1,0 +1,24 @@
+#!/bin/bash
+
+export DISPLAY=:0
+export XAUTHORITY=/home/mikey/.Xauthority
+
+# Change dpi for diff monitor connections
+# ASSUMES 2nd monitor is 1920x1080
+if [[ $(xrandr | grep ' connected ' | wc -l) -eq 2 ]]
+then
+	echo "Xft.dpi: 96" > /home/mikey/.Xresources
+	xrdb -merge /home/mikey/.Xresources
+	xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1-0 --auto --left-of eDP-1
+else
+	echo "Xft.dpi: 192" > /home/mikey/.Xresources
+	xrdb -merge /home/mikey/.Xresources
+	xrandr --auto
+	xrandr --output eDP-1 --mode 3840x2160
+fi
+
+# Restart feh
+/home/mikey/.fehbg &
+
+# Restart polybar
+/home/mikey/.config/polybar/launch.sh &

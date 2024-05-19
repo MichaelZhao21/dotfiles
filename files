@@ -1,0 +1,13 @@
+bin
+.zshrc
+.zprofile
+.zshenv
+.vim
+.vimrc
+
+[.config]
+i3
+polybar
+dunst
+hyfetch.json
+rofi

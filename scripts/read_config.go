@@ -9,7 +9,7 @@ import (
 
 func ReadConfig() []string {
 	// Read file
-	file, err := os.Open("scripts/files")
+	file, err := os.Open("files")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,11 +40,24 @@ func ReadConfig() []string {
 
 		// If the line is wrapped in brackets, set the current directory
 		if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
-			currDir = homeDir + "/" + strings.TrimSuffix(strings.TrimPrefix(line, "["), "]")
+			// Use home directory as base unless the path is absolute
+			base := homeDir + "/"
+			if strings.HasPrefix(line, "[/") {
+				base = ""
+			}
+
+			// Set the curr dir
+			currDir = base + strings.TrimSuffix(strings.TrimPrefix(line, "["), "]")
 			continue
 		}
 
-		// Add the file to the list
+		// If the line starts with a slash, use absolute path
+		if strings.HasPrefix(line, "/") {
+			files = append(files, line)
+			continue
+		}
+
+		// Otherwise, use the relative path
 		files = append(files, currDir+"/"+line)
 	}
 

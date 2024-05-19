@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "oAAdj&r8f2o1" | xclip
-ssh michael@prolangs.utdallas.edu

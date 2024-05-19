@@ -1,9 +1,0 @@
-#!/bin/bash
-
-PERCENT=$(cat /sys/class/power_supply/BAT0/capacity)
-STATUS=$(cat /sys/class/power_supply/BAT0/status)
-
-if [ ${PERCENT} -lt 20 ] && [ ${STATUS} = "Discharging" ];
-then
-    notify-send "Your battery is fucking low." "PLUG ME IN BITCH" -i ~/backgrounds/battery-low.png
-fi
